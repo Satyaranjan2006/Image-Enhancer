@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Downloader & Enhancer</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div>
+                <h1>🖼️ Image Downloader & Enhancer</h1>
+                <p>Download and enhance images with pixel improvement options</p>
+            </div>
+             <img src="image.png" alt="Enhancer Logo" class="logo">
+        </header>
+
+        <div class="input-section">
+            <div class="url-input-group">
+                <input type="url" id="imageUrl" placeholder="Enter image URL..." required>
+                <button id="loadImage" class="btn btn-primary">Load Image</button>
+                <input type="file" id="fileInput" accept="image/*" style="display: none;">
+                <button id="uploadImage" class="btn btn-secondary" title="Upload Image">
+                    <span>📤 Upload Image</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="enhancement-controls" id="enhancementControls" style="display: none;">
+            <h3>Enhancement Options</h3>
+            
+            <div class="control-group">
+                <label for="widthInput">Width (px):</label>
+                <input type="number" id="widthInput" min="100" step="1" placeholder="Original">
+                <span>×</span>
+                <label for="heightInput" style="margin-left: 10px;">Height (px):</label>
+                <input type="number" id="heightInput" min="100" step="1" placeholder="Original">
+                <button id="applyResize" class="btn btn-small">Apply</button>
+                <span id="originalDimensions" class="dimension-hint"></span>
+            </div>
+            
+            <div class="control-group">
+                <label for="formatSelect">Output Format:</label>
+                <select id="formatSelect" class="format-select">
+                    <option value="jpeg" selected>JPEG (.jpg)</option>
+                    <option value="png">PNG (.png)</option>
+                    <option value="pdf">PDF (.pdf)</option>
+                </select>
+            </div>
+            
+            <div class="control-group" id="qualityControl">
+                <label for="qualitySlider">Quality:</label>
+                <input type="range" id="qualitySlider" min="10" max="100" value="85" step="1">
+                <span id="qualityValue">85%</span>
+            </div>
+            
+            <div class="control-group">
+                <label for="scaleSlider">Scale Factor:</label>
+                <input type="range" id="scaleSlider" min="1" max="4" value="1" step="0.1">
+                <span id="scaleValue">1x</span>
+            </div>
+
+            <div class="control-group">
+                <label for="brightnessSlider">Brightness:</label>
+                <input type="range" id="brightnessSlider" min="0" max="2" value="1" step="0.01">
+                <span id="brightnessValue">100%</span>
+            </div>
+
+            <div class="control-group">
+                <label for="contrastSlider">Contrast:</label>
+                <input type="range" id="contrastSlider" min="0" max="2" value="1" step="0.01">
+                <span id="contrastValue">100%</span>
+            </div>
+
+            <div class="control-group">
+                <label for="saturationSlider">Saturation:</label>
+                <input type="range" id="saturationSlider" min="0" max="2" value="1" step="0.01">
+                <span id="saturationValue">100%</span>
+            </div>
+
+            <div class="control-group">
+                <label for="sharpnessSlider">Sharpness:</label>
+                <input type="range" id="sharpnessSlider" min="0" max="2" value="0" step="0.01">
+                <span id="sharpnessValue">0%</span>
+            </div>
+
+            <div class="filter-options">
+                <h4>Quick Filters</h4>
+                <button class="filter-btn" data-filter="none">Original</button>
+                <button class="filter-btn" data-filter="vintage">Vintage</button>
+                <button class="filter-btn" data-filter="blackwhite">B&W</button>
+                <button class="filter-btn" data-filter="sepia">Sepia</button>
+                <button class="filter-btn" data-filter="vibrant">Vibrant</button>
+            </div>
+
+            <div class="action-buttons">
+                <button id="resetFilters" class="btn btn-secondary">Reset</button>
+                <button id="downloadImage" class="btn btn-success">Download Enhanced Image</button>
+            </div>
+        </div>
+
+        <div class="image-preview" id="imagePreview" style="display: none;">
+            <div class="preview-container">
+                <div class="image-container">
+                    <h4>Original</h4>
+                    <img id="originalImage" alt="Original image">
+                    <div class="image-info">
+                        <span id="originalSize"></span>
+                    </div>
+                </div>
+                
+                <div class="image-container">
+                    <h4>Enhanced</h4>
+                    <canvas id="enhancedCanvas"></canvas>
+                    <div class="image-info">
+                        <span id="enhancedSize"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="loading" id="loading" style="display: none;">
+            <div class="spinner"></div>
+            <p>Processing image...</p>
+        </div>
+
+        <div class="error-message" id="errorMessage" style="display: none;">
+            <p></p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
